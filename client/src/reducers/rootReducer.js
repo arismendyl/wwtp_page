@@ -3,16 +3,17 @@ const initState= {
     col: [],
     series: [
         {
-        name: "",
-        data: []
+            name: "",
+            data: []
         }
     ],
     options: {
         chart: {
+            id: "",
             type: 'area',
             group: 'social',
             stacked: false,
-            height: 350,
+            height: '100%',
             width:"100%",
             animations: {
                 enabled: true,
@@ -73,17 +74,18 @@ const initState= {
         dataLabels: {
             enabled: false
         },
-        colors: ["#F3B415", "#F27036", "#663F59", "#6A6E94", "#4E88B4", "#00A7C6", "#18D8D8", '#A9D794',
-        '#46AF78', '#A93F55', '#8C5E58', '#2176FF', '#33A1FD', '#7A918D', '#BAFF29', '#00FFFF', '#DA4167',
-        '#A31621','#1F7A8C', '#8F2D56'
-        ],
         title: {
-            text: "WWTP",
+            text: "",
             align: "center",
             margin: 20,
             offsetY: 20,
             style: {
                 fontSize: "25px"
+            }
+        },
+        yaxis: {
+            labels: {
+                minWidth: 40
             }
         }
     },

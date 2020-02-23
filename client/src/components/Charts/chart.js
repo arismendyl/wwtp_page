@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import AChart from "react-apexcharts";
 import { connect } from 'react-redux'
 import { postDate } from '../../actions/postDate'
 import { postLines } from '../../actions/postLines'
 import { createData } from "../../actions/postActions"
 import { postColumns } from "../../actions/postColumns"
+import Seeds from './seeds'
 
 class Chart extends Component {
 
@@ -47,6 +47,7 @@ class Chart extends Component {
     this.setState({ok:1})
     var column = this.segment(this.props.col);
     var data = this.props.data;
+    console.log(this.props.data)
     const date = data.map(x => {
       return x.Date.split("T")[0]
     }
@@ -76,20 +77,9 @@ class Chart extends Component {
   }
 
   render() {
+    console.log(this.props.series)
     return (
-      <div className="content bg">
-        <div className="container">
-          <div className="row">
-            <div className="col s12 card">
-                <AChart
-                options={this.props.options}
-                series={this.props.series}
-                ref={this.chart}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Seeds todos={this.props.series} options={this.props.options}/>
     );
   }
 }
