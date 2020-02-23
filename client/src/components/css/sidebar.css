@@ -1,0 +1,20 @@
+nav div a.brand-logo.black-text i{
+    padding-right: 10px;
+    padding-top: 4px;
+}
+
+@media screen and (min-width: 520px) {
+    nav div a.brand-logo.black-text span{
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 519px) {
+    nav div a.brand-logo.black-text span{
+        font-size: 16px;
+    }
+}
+
+nav ul li a{
+    color: black;
+}

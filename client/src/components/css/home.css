@@ -1,0 +1,29 @@
+header{
+    background: url(../images/wwtp-h.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 600px !important;
+}
+
+@media screen and (max-width: 670px){
+    header{
+        min-height: 500px !important;
+    }
+}
+
+.section{
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+}
+
+div .contact ul li span{
+    padding-right: 5px;
+    vertical-align: bottom;
+}
+
+div .contact ul li i{
+    padding-right: 5px;
+    vertical-align: top;
+    font-size: 20px !important;
+}
+
