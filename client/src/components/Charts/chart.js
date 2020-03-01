@@ -47,7 +47,6 @@ class Chart extends Component {
     this.setState({ok:1})
     var column = this.segment(this.props.col);
     var data = this.props.data;
-    console.log(this.props.data)
     const date = data.map(x => {
       return x.Date.split("T")[0]
     }
@@ -77,9 +76,8 @@ class Chart extends Component {
   }
 
   render() {
-    console.log(this.props.series)
     return (
-      <Seeds todos={this.props.series} options={this.props.options}/>
+      <Seeds todos={this.props.series} date={this.props.options}/>
     );
   }
 }
