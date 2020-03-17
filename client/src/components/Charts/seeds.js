@@ -1,7 +1,7 @@
 import React from 'react'
 import AChart from "react-apexcharts";
 const op = (id, name, date) =>{
-    let colors = ['#00ff78', '#f76c6c', '#ffe700', '#374785', '#24305e', '#339933', '#375e97', '#fb6542', '#ffbb00', '#3dbb2f'
+    let colors = ['#00ff78', '#f76c6c', '#ffe700', '#374785', '#e0301e', '#339933', '#375e97', '#fb6542', '#ffbb00', '#3dbb2f'
     ,'#004c97', '#ff9e15', '#a5cd50', '#2dbecd', '#e61e50', '#fbae00', '#da5353', '#693f7b', '#39589a',	'#338984'];
     let text_id = 'chart-'.concat(id);
     return(    
@@ -12,8 +12,7 @@ const op = (id, name, date) =>{
             type: 'area',
             group: 'social',
             stacked: false,
-            height: '100%',
-            width:"100%",
+            height: 'auto',
             animations: {
                 enabled: true,
                 easing: 'easeinout',
@@ -99,7 +98,7 @@ const Seeds= ({todos, date}) =>{
             console.log(parameters);
             return(
                 <div className="col s12 m6" key={index}>
-                    <div className="card">
+                    <div className="card small">
                         <AChart
                         options={parameters}
                         series={[todo]}/>
