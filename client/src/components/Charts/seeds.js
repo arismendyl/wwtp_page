@@ -95,7 +95,6 @@ const Seeds= ({todos, date}) =>{
             let option = index;
             let name= todo.name;
             let parameters = op(option, name, date);
-            console.log(parameters);
             return(
                 <div className="col s12 m6" key={index}>
                     <div className="card small">

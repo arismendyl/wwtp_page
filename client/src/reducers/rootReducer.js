@@ -4,6 +4,8 @@ const initState= {
     series: [],
     seeds: [],
     options: [],
+    series_s: [],
+    options_s: [],
 }
 
 const rootReducer = (state=initState, action) =>{
@@ -38,6 +40,19 @@ const rootReducer = (state=initState, action) =>{
         return {
             ...state,
             seeds: action.seeds
+        }
+    }
+
+    if (action.type === 'POST_DATE_S') {
+        return {
+            ...state,
+            options_s: action.options_s}
+    }
+
+    if (action.type === 'POST_LINES_S') {
+        return {
+            ...state,
+            series_s: action.series_s
         }
     }
 
