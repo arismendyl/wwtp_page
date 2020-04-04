@@ -6,6 +6,7 @@ const initState= {
     options: [],
     series_s: [],
     options_s: [],
+    index: [0,0]
 }
 
 const rootReducer = (state=initState, action) =>{
@@ -53,6 +54,13 @@ const rootReducer = (state=initState, action) =>{
         return {
             ...state,
             series_s: action.series_s
+        }
+    }
+
+    if (action.type === 'POST_INDEX') {
+        return {
+            ...state,
+            index: action.index
         }
     }
 

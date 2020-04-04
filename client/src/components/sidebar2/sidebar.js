@@ -30,6 +30,8 @@ class Sidebar extends Component{
                         </a>
                         <ul className="right hide-on-med-and-down">
                             <li><a href="/">Home</a></li>
+                            <li><a href="/user">Real Time</a></li>
+                            <li><a href="/hist">Historical Data</a></li>
                             <li><a href="/" onClick={this.handlelogout} className="btn-floating black z-depth-0">
                                 <i className="material-icons grey-text text-lighten-2">exit_to_app</i>
                             </a>
@@ -42,6 +44,18 @@ class Sidebar extends Component{
                         <a href="/">
                             <i className="material-icons">home</i>
                             Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user">
+                            <i className="material-icons">timeline</i>
+                            Real Time
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/hist">
+                            <i className="material-icons">history</i>
+                            Historical Data
                         </a>
                     </li>
                     <li>

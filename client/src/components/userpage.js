@@ -6,19 +6,18 @@ import './css/home.css'
 import Line from "./Charts/chart";
 import Sidebar from "./sidebar2/sidebar"
 import { connect } from 'react-redux'
-import { postDate_s } from '../actions/postDate_s'
 import { postLines_s } from '../actions/postLines_s'
+import { postIndex } from '../actions/postIndex'
 
 class UserPage extends Component {
 
 	onChangeSlide(data){
-		let min = data[0]
-		let max = data[1]
-		let length = this.props.options.length
-		let inf = Math.floor((min*length)/100)
-		let sup = Math.floor((max*length)/100)
-		this.props.postDate_s(this.props.options.slice(inf,sup));
-		this.props.postLines_s(this.dataSubset(this.props.series, inf, sup))
+		let min = data[0];
+		let max = data[1];
+		let length = this.props.options.length;
+		let inf = Math.floor((min*length)/100);
+		let sup = Math.floor((max*length)/100);
+		this.props.postIndex([inf,sup])
 	}
 
 	dataSubset(data, inf, sup){
@@ -75,16 +74,30 @@ class UserPage extends Component {
 			</div>
 			,
 			<div className="container">
-				<Nouislider 
-				range={{ min: 0, max: 100 }} 
-				start={[0, 80]} 
-				connect
-				onSet={this.onChangeSlide.bind(this)}
-				ref="NoUiSlider"
-				/>
+				<div className="row">
+					<div className="col s11">
+							<Nouislider 
+							range={{ min: 0, max: 100 }} 
+							start={[0, 80]} 
+							connect
+							onSet={this.onChangeSlide.bind(this)}
+							ref="NoUiSlider"
+							/>
+					</div>
+					<div className="col s1 offset-s11">
+						<a class="btn-floating btn-large waves-effect waves-light green right-align"><i class="material-icons">eject</i></a>
+					</div>
+				</div>
 			</div>
 			,
-			<Line/>
+			<Line/>,
+			/*<div className="container">
+				<div className="row">
+					<di className="col s6">
+						<GraphWrapper/> 
+					</di>
+				</div>
+			</div>*/
 			]
         );
     };
@@ -102,8 +115,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		postDate_s: (options_s) => {
-		dispatch(postDate_s(options_s))
+		postIndex: (index) => {
+		dispatch(postIndex(index))
 		return Promise.resolve()
 		},
 		postLines_s: (series_s) => {

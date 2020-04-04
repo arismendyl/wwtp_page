@@ -8,7 +8,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testApiRouter = require('./routes/testApi');
-const RoutesRead=require("./routes/read");
+const RoutesRead = require("./routes/read");
+var model = require("./tensorflow/predictor");
 
 var app = express();
 
@@ -26,7 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/testApi', testApiRouter);
-app.use('/API/read',RoutesRead);
+app.use('/API/read', RoutesRead);
+app.use('/model', model);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
