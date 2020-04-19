@@ -103,7 +103,6 @@ class GraphWrapper extends Component {
 
     render() {
         const { options, series } = this.state;
-        //<button onClick={this.resetData}>RESET</button>
         return (
                 <Chart options={options} series={series}/>
         );

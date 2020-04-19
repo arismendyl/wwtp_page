@@ -105,7 +105,9 @@ class GraphWrapper extends Component {
             );
             // stop data array from leaking memory and growing too big
             if (data.length > 100) this.resetData();
-            this.props.postIndex([this.props.index[0]+1,this.props.index[1]])
+            if(this.props.id===1){
+                this.props.postIndex([this.props.index[0]+1,this.props.index[1]]);
+            }
         }
     }
     

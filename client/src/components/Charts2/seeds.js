@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ApexCharts from 'react-apexcharts'
 import { connect } from 'react-redux'
 import GraphWrapper from './test'
+import './../css/seeds.css'
 
 const op = (id, name) =>{
     let colors = ['#00ff78', '#f76c6c', '#ffe700', '#374785', '#e0301e', '#339933', '#375e97', '#fb6542', '#ffbb00', '#3dbb2f'
@@ -15,7 +16,8 @@ const op = (id, name) =>{
             type: 'area',
             group: 'social',
             stacked: false,
-            height: 'auto',
+            height: '100%',
+            width: '100%',
             /*animations: {
                 enabled: true,
                 easing: 'easeinout',
@@ -108,42 +110,8 @@ class Seeds extends Component {
     }
 
     componentDidMount(nextProps) {
-        window.setInterval(() => {
-            /*if(this.props.series_s.length>0){
-                        this.props.series_s.map((x,i)=>{
-                            this.refsArray[i].chart.updateSeries([{
-                                ...this.refsArray[i].props.series[0],
-                                data: [...this.props.series_s[i].data]}]);
-                            console.log('series');
-                            console.log([{
-                                ...this.refsArray[i].props.series[0],
-                                data: [...this.props.series_s[i].data]}])
-                        });
-                }*/
-        }, 1000)
+        window.setInterval(() => {}, 1000)
     }
-    
-    /*shouldComponentUpdate(nextProps) {
-        return this.props.todos.length != nextProps.todos.length;
-    }*/
-
-    /*componentWillReceiveProps(nextProps){
-        console.log(this.props)
-        if(this.props.series_s.length){
-            if(!(nextProps.series_s===this.props.series_s)){
-                console.log('ok')
-                nextProps.series_s.map((x,i)=>{
-                    this.refsArray[i].chart.updateSeries([{
-                        ...this.refsArray[i].props.series[0],
-                        data: [...nextProps.series_s[i].data]}]);
-                    console.log('series');
-                    console.log([{
-                        ...this.refsArray[i].props.series[0],
-                        data: [...nextProps.series_s[i].data]}])
-                });
-            }
-        }
-    }*/
 
     render() {
         const todoList = this.props.todos.length ? (
@@ -151,12 +119,14 @@ class Seeds extends Component {
                 let option = index;
                 let name= todo.name;
                 return(
-                    <div className="col s12 m6" key={index}>
+                    <div className="col s12 l6" key={index}>
                         <div className="card small">
-                            <GraphWrapper
-                            id={option} 
-                            name={name}
-                            />
+                            <div className="container">
+                                <GraphWrapper
+                                id={option} 
+                                name={name}
+                                />
+                            </div>
                         </div>
                     </div>
                 );

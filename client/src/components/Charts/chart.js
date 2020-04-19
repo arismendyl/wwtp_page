@@ -6,6 +6,7 @@ import { createData } from "../../actions/postActions"
 import { postColumns } from "../../actions/postColumns"
 import { postDate_s } from '../../actions/postDate_s'
 import { postLines_s } from '../../actions/postLines_s'
+import { postModel } from '../../actions/postModel'
 import Seeds from './seeds'
 
 class Chart extends Component {
@@ -30,9 +31,15 @@ class Chart extends Component {
       .then(res => res.text())
       .then(res => {
         this.props.postColumns(JSON.parse(res))
-      })
-      ;
-    Promise.all([promise1, promise2]).then(() => boundCallback());
+      });
+    const promise3 = fetch('http://localhost:9000/API/read/model')
+      .then(res => res.text())
+      .then(res => {
+        let dataModel = JSON.parse(res);
+        dataModel.sort((a, b) => (a.id > b.id) ? 1 : -1);
+        this.props.postModel(dataModel)
+      });
+    Promise.all([promise1, promise2, promise3]).then(() => boundCallback());
   }
 
   segment(col) {
@@ -95,6 +102,7 @@ const mapStateToProps = (state) => {
     col: state.col,
     series: state.series,
     options: state.options,
+    model: state.model
   }
 }
 
@@ -122,6 +130,10 @@ const mapDispatchToProps = (dispatch) => {
       },
     postLines_s: (series_s) => {
       dispatch(postLines_s(series_s))
+      return Promise.resolve()
+    },
+    postModel: (model) => {
+      dispatch(postModel(model))
       return Promise.resolve()
     }
   }

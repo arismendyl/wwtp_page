@@ -4,10 +4,15 @@ import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
 import './css/home.css'
 import Line from "./Charts/chart";
-import Sidebar from "./sidebar2/sidebar"
-import { connect } from 'react-redux'
-import { postLines_s } from '../actions/postLines_s'
-import { postIndex } from '../actions/postIndex'
+import Sidebar from "./sidebar2/sidebar";
+import { connect } from 'react-redux';
+import { postLines_s } from '../actions/postLines_s';
+import { postIndex } from '../actions/postIndex';
+import API from "./model/api";
+import Boxes from "./model/boxes";
+import Table from './monitoring/table';
+import M from "materialize-css/dist/js/materialize.min.js";
+import './css/user.css'
 
 class UserPage extends Component {
 
@@ -30,74 +35,37 @@ class UserPage extends Component {
 		return sf
 	}
 
-
-
     render(){
         return(
             [
-			<Sidebar/>,
-			<div class="content bg black">
-				<div class="container">
-				<div class="row">
-					<div class="col s12 m4">
-						<div class="card card-bg black-text">
-							<div class="card-content center">
-								<p>Revenue</p>
-								<h5>$12,476.00</h5>
-								<i class="material-icons small green-text">keyboard_arrow_up</i>
-								<b class="green-text">%12</b>
+			<div className="row">
+				<div className="col s10">
+					<div className="container header">
+						<Sidebar/>
+						<Boxes/>
+					</div>
+					<div className="content">
+						<div className="container">
+							<div className="row">
+								<div className="col s11">
+										<Nouislider 
+										range={{ min: 0, max: 100 }} 
+										start={[0, 80]} 
+										connect
+										onSet={this.onChangeSlide.bind(this)}
+										ref="NoUiSlider"
+										/>
+								</div>
 							</div>
 						</div>
+						<Line/>
 					</div>
-					<div class="col s12 m4">
-						<div class="card card-bg black-text">
-							<div class="card-content center">
-								<p>Click</p>
-								<h5>2400</h5>
-								<i class="material-icons small red-text">keyboard_arrow_down</i>
-								<b class="red-text">%10</b>
-							</div>
-						</div>
-					</div>
-					<div class="col s12 m4">
-						<div class="card card-bg black-text">
-							<div class="card-content center">
-								<p>Users</p>
-								<h5>5000,00</h5>
-								<i class="material-icons small green-text">keyboard_arrow_up</i>
-								<b class="green-text">%7</b>
-							</div>
-						</div>
-					</div>
+					<API/>
+				</div>
+				<div className="col s2">
+					<Table/>
 				</div>
 			</div>
-			</div>
-			,
-			<div className="container">
-				<div className="row">
-					<div className="col s11">
-							<Nouislider 
-							range={{ min: 0, max: 100 }} 
-							start={[0, 80]} 
-							connect
-							onSet={this.onChangeSlide.bind(this)}
-							ref="NoUiSlider"
-							/>
-					</div>
-					<div className="col s1 offset-s11">
-						<a class="btn-floating btn-large waves-effect waves-light green right-align"><i class="material-icons">eject</i></a>
-					</div>
-				</div>
-			</div>
-			,
-			<Line/>,
-			/*<div className="container">
-				<div className="row">
-					<di className="col s6">
-						<GraphWrapper/> 
-					</di>
-				</div>
-			</div>*/
 			]
         );
     };

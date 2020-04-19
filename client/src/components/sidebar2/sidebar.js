@@ -10,6 +10,10 @@ class Sidebar extends Component{
             edge: "left",
             inDuration: 250
         });
+        /*var elem2 = document.querySelector(".pinned");
+        var instance2 = M.Pushpin.init(elem2, {
+            top: 0,
+        });*/
     }
 
     handlelogout(e){

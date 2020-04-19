@@ -22,5 +22,9 @@ router.get('/columns',async (req,res)=>{
     res.json(rqst.rows);
 })
 
+router.get('/model',async (req,res)=>{
+    const rqst = await pool.query('SELECT * FROM model')
+    res.json(rqst.rows);
+})
 
 module.exports=router

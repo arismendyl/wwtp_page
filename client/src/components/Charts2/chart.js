@@ -74,10 +74,6 @@ class Chart extends Component {
     this.callApi(this.processing);
   }
 
-  /*shouldComponentUpdate(nextProps) {
-    return this.props.series_s.length != nextProps.series_s.length;
-  }*/
-
   chart = (e) => {
     this.setState({componentChart: e})
   }

@@ -6,7 +6,9 @@ const initState= {
     options: [],
     series_s: [],
     options_s: [],
-    index: [0,0]
+    model:[],
+    inputModel: [],
+    index: []
 }
 
 const rootReducer = (state=initState, action) =>{
@@ -61,6 +63,20 @@ const rootReducer = (state=initState, action) =>{
         return {
             ...state,
             index: action.index
+        }
+    }
+
+    if (action.type === 'POST_MODEL') {
+        return {
+            ...state,
+            model: action.model
+        }
+    }
+
+    if (action.type === 'POST_INPUTMODEL') {
+        return {
+            ...state,
+            inputModel: action.imodel
         }
     }
 
