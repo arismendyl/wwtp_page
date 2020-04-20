@@ -7,17 +7,22 @@ import Sidebar from "./sidebar2/sidebar"
 import { connect } from 'react-redux'
 import { postLines_s } from '../actions/postLines_s'
 import { postIndex } from '../actions/postIndex'
+import Table from '../components/monitoring/hTable'
 
 class HistoricalPage extends Component {
 
 
     render(){
         return(
-            [
-			<Sidebar/>
-			,
-			<Line/>
-			]
+			<div className="row">
+				<div className="col s10">
+					<Sidebar/>
+					<Line/>
+				</div>
+				<div className="col s2">
+					<Table/>
+				</div>
+			</div>
         );
     };
     

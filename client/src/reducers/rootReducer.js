@@ -8,7 +8,8 @@ const initState= {
     options_s: [],
     model:[],
     inputModel: [],
-    index: []
+    index: [],
+    hisIndex: null,
 }
 
 const rootReducer = (state=initState, action) =>{
@@ -79,6 +80,15 @@ const rootReducer = (state=initState, action) =>{
             inputModel: action.imodel
         }
     }
+
+    if (action.type === 'POST_HISINDEX') {
+        return {
+            ...state,
+            hisIndex: action.hindex
+        }
+        
+    }
+
 
     return state;
 }

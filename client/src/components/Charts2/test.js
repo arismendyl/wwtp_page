@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 import ApexCharts from "apexcharts";
 import { connect } from 'react-redux';
 import { postIndex } from '../../actions/postIndex'
+import { postHisIndex } from '../../actions/postHisIndex'
 
 const colors = ['#00ff78', '#f76c6c', '#ffe700', '#374785', '#e0301e', '#339933', '#375e97', '#fb6542', '#ffbb00', '#3dbb2f'
 ,'#004c97', '#ff9e15', '#a5cd50', '#2dbecd', '#e61e50', '#fbae00', '#da5353', '#693f7b', '#39589a',	'#338984'];
@@ -10,20 +11,22 @@ const colors = ['#00ff78', '#f76c6c', '#ffe700', '#374785', '#e0301e', '#339933'
 class GraphWrapper extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
         options: {
             colors: [colors[this.props.id]],
             chart: {
             id: 'chart-'.concat(this.props.id),
+            type: 'area',
+            group: 'social',
+            stacked: false,
+            height: '100%',
             animations: {
                 enabled: true,
-                easing: "linear",
+                easing: 'linear',
                 dynamicAnimation: {
-                speed: 1000
+                speed: 350
                 }
             },
-            height: 'auto',
             zoom: {
                 type: 'x',
                 enabled: true,
@@ -32,27 +35,18 @@ class GraphWrapper extends Component {
             toolbar: {
                 autoSelected: 'zoom'
             },
-            type: 'area',
-            group: 'social',
-            stacked: false,
-            height: 'auto',
-            },
-            dataLabels: {
-            enabled: false
-            },
-            title: {
-            text: this.props.name,
-            align: "center",
-            margin: 20,
-            offsetY: 20,
-            style: {
-                fontSize: "25px"
+            events: {
+                markerClick: function(event, chartContext, { seriesIndex, dataPointIndex, config}) {
+                    if (this.state.options.chart.id === 'chart-0') {
+                        this.props.postHisIndex(dataPointIndex);
+                    }
+                }.bind(this)
             }
-            },
-            markers: {
-            size: 0
-            },
-            xaxis: {
+        },
+        markers: {
+            size: 0,
+        },
+        xaxis: {
             type: "datetime",
             labels: {
                 datetimeFormatter: {
@@ -62,14 +56,40 @@ class GraphWrapper extends Component {
                     hour: 'HH:mm'
                 }
             }
-            },
-            yaxis:{
-                range: "autoScaleYaxis",
-                showForNullSeries: true
-            },
-            legend: {
-            show: false
+        },
+        fill: {
+            opacity: 0.9,
+            type: 'solid',
+            gradient: {
+                shade: 'dark',
+                type: "horizontal",
+                shadeIntensity: 0.5,
+                gradientToColors: undefined,
+                inverseColors: true,
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 50, 100],
+                colorStops: []
             }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: this.props.name,
+            align: "center",
+            margin: 20,
+            offsetY: 20,
+            style: {
+                fontSize: "25px"
+            }
+        },
+        yaxis: {
+            labels: {
+                minWidth: 60
+            },
+            showForNullSeries: true
+        }
         },
         series: [{ data: [] }]
         };
@@ -121,9 +141,13 @@ class GraphWrapper extends Component {
     const mapDispatchToProps = (dispatch) => {
         return {
         postIndex: (index) => {
-            dispatch(postIndex(index))
-            return Promise.resolve()
+                dispatch(postIndex(index))
+                return Promise.resolve()
             },
+        postHisIndex: (hindex) => {
+                dispatch(postHisIndex(hindex))
+                return Promise.resolve()
+            }
         }
     }
     
