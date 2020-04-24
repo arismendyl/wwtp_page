@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Updating from './hUpdating'
-import './../css/table.css'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Updating from './hUpdating';
+import Hdate from './hDate'
+import './../css/table.css';
 import M from "materialize-css/dist/js/materialize.min.js";
+
 
 class Table extends Component {
     
@@ -18,6 +20,12 @@ class Table extends Component {
             });
         });
     }
+
+    onChangeDate(index){
+        let d = this.props.series[0].data[index][0];
+        return(d);
+	}
+
 
     render() {
         let colors = ['#00ff78', '#f76c6c', '#ffe700', '#374785', '#e0301e', '#339933', '#375e97', '#fb6542', '#ffbb00', '#3dbb2f'
@@ -36,11 +44,8 @@ class Table extends Component {
         ) : (
             <p className="center">Loading</p>
         );
-        const date = this.props.hisIndex ? (
-            ()=>{return(this.props.series[this.props.i].data[this.props.hisIndex][0])}
-        ):(
-            null
-        );
+        const date = (this.props.index) ? 
+        (this.onChangeDate(this.props.index)):(null);
         return(
             <div className="table">
                 <table className="striped">
@@ -53,7 +58,7 @@ class Table extends Component {
                     <tbody>
                         <tr>
                             <th>Date</th>
-                            <td>{date}</td>
+                            <td style={{color:"#5d5c5f"}}><b>{date}</b></td>
                         </tr>
                         {todoList}
                     </tbody>
@@ -66,7 +71,7 @@ class Table extends Component {
 const mapStateToProps = (state) => {
     return {
         series: state.series,
-        hisIndex: state.hisIndex
+        index: state.hisIndex
         }
 }
 
