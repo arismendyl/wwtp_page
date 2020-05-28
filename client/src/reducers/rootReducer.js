@@ -10,6 +10,8 @@ const initState= {
     inputModel: [],
     index: [],
     hisIndex: null,
+    real: [],
+    predicted: []
 }
 
 const rootReducer = (state=initState, action) =>{
@@ -89,6 +91,19 @@ const rootReducer = (state=initState, action) =>{
         
     }
 
+    if (action.type === 'POST_REAL') {
+        return {
+            ...state,
+            real: [...state.real, action.real]
+        }
+    }
+
+    if (action.type === 'POST_PREDICTED') {
+        return {
+            ...state,
+            predicted: [...state.predicted, action.predicted]
+        }
+    }
 
     return state;
 }

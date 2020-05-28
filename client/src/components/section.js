@@ -26,8 +26,7 @@ class Section extends Component {
                         </div>
                         <div className="col s12 l6 offset-l1">
                             <h2 className="black-text">Machine Learning</h2>
-                            <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, 
-                                consectetur, adipisci velit...</p>
+                            <p>“Machine learning is the study of computer algorithms that allow computer programs to automatically improve through experience.” <b>Tom M. Mitchell</b></p>
                         </div>
                     </div>
                     <div className="row">
@@ -36,8 +35,7 @@ class Section extends Component {
                         </div>
                         <div className="col s12 l6 pull-l5 offset-l1 right-align">
                             <h2 className="black-text">Data analysis</h2>
-                            <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, 
-                                consectetur, adipisci velit...</p>
+                            <p>"Research method involves the systematic procedures by which the researcher starts from the initial identification of the problem to its final conclusions. In this study, the researcher uses qualitative descriptive method in collecting and analyzing the data." <b>Kothari</b></p>
                         </div>
                     </div>
                     <div className="row">
@@ -45,9 +43,8 @@ class Section extends Component {
                             <img src={plant} alt="Data analysis" className="responsive-img materialboxed"/>
                         </div>
                         <div className="col s12 l6 offset-l1">
-                            <h2 className="black-text">Plant treatment</h2>
-                            <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, 
-                                consectetur, adipisci velit...</p>
+                            <h2 className="black-text">Treatment Plant</h2>
+                            <p>"A treatment plant refers to a plant or installation that is used to purify contaminated substances. These substances may be solid, liquid and semi-solids." <b>Petropedia</b></p>
                         </div>
                     </div>
                 </section>
