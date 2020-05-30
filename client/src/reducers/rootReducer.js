@@ -11,7 +11,8 @@ const initState= {
     index: [],
     hisIndex: null,
     real: [],
-    predicted: []
+    predicted: [],
+    decomposition: []
 }
 
 const rootReducer = (state=initState, action) =>{
@@ -102,6 +103,13 @@ const rootReducer = (state=initState, action) =>{
         return {
             ...state,
             predicted: [...state.predicted, action.predicted]
+        }
+    }
+
+    if (action.type === 'POST_DECOMPOSITION') {
+        return {
+            ...state,
+            decomposition: action.decomposition
         }
     }
 

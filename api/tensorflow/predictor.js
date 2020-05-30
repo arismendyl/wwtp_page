@@ -8,7 +8,7 @@ async function Model(params){
     const model = await tf.loadLayersModel('http://localhost:9000/model/download');
     console.log("Model loaded");
     //const inputData = tf.tensor2d([[0.878873,0.579114,0.325688,0.188825,0.224696,0.596491,0.444705,0.852819,0.813248,0.772136,0.112255,0.055336,0.242188,0.693038,0.746835]], [1, 15]);
-    const inputData = tf.tensor2d(params, [1, 15]);
+    const inputData = tf.tensor2d(params, [1, 5]);
     model.predict(inputData).array().then((res)=>{console.log(res)});
     const results = tf.variable(model.predict(inputData)).array().then((res)=>{return res});
     console.log(results);

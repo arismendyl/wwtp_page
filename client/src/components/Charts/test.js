@@ -76,7 +76,7 @@ class GraphWrapper extends Component {
     }
 
     componentDidMount() {
-        this.updateInterval = setInterval(() => this.updateData(), 1000);
+        this.updateInterval = setInterval(() => this.updateData(), 500);
     }
 
     componentWillUnmount() {
@@ -99,14 +99,14 @@ class GraphWrapper extends Component {
             const y = this.props.series_s[this.props.id].data[a][1];
             let { data } = this.state.series[0];
             data.push({ x, y});
+            if(this.props.id===1){
+                this.props.postIndex([this.props.index[0]+1,this.props.index[1]]);
+            }
             this.setState({ series: [{ data }] }, () =>
             ApexCharts.exec('chart-'.concat(this.props.id), "updateSeries", this.state.series)
             );
             // stop data array from leaking memory and growing too big
             if (data.length > 20) this.resetData();
-            if(this.props.id===1){
-                this.props.postIndex([this.props.index[0]+1,this.props.index[1]]);
-            }
         }
     }
     

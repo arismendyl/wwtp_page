@@ -19,27 +19,13 @@ class API extends Component {
                     let result = this.props.series.filter(obj => {
                         return obj.name === x.variables;
                     })
-                    return result[0].data[this.props.index[0]][1];
+                    return result[0].data[this.props.index[0]][1]/x.max;
                 }else{
-                    if (x.variables==='MA') {
-                        let lim = 1
-                        if (this.props.index[0]>=14) {
-                            lim=15;
+                    if (x.variables==='residual') {
+                        if (this.props.index[0]==0) {
+                            return this.props.decomposition[this.props.index[0]].residual/x.max;
                         }else{
-                            lim=this.props.index[0]+1;
-                        }
-                        for (var index = 0; index < lim; index++) {
-                            var MA = 0;
-                            MA = MA + this.props.series[2].data[this.props.index[0]-index][1];
-                        }
-                        MA = MA / (index + 1);
-                        return MA
-                    }
-                    if (x.variables==='t-1') {
-                        if (this.props.index[0]===0) {
-                            return this.props.series[2].data[this.props.index[0]][1]
-                        }else{
-                            return this.props.series[2].data[this.props.index[0]-1][1]
+                            return this.props.decomposition[this.props.index[0]-1].residual/x.max;
                         }
                     }
                 }
@@ -67,7 +53,8 @@ class API extends Component {
         return {
             index: state.index,
             model: state.model,
-            series: state.series
+            series: state.series,
+            decomposition: state.decomposition
         }
     }
 

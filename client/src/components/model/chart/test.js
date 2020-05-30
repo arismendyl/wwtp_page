@@ -11,6 +11,8 @@ class GraphWrapper extends Component {
         super(props);
 
         this.state = {
+        len:0,
+        MAPE:0,
         options: {
             colors: [colors[0], colors[1]],
             chart: {
@@ -70,16 +72,22 @@ class GraphWrapper extends Component {
             show: true
             }
         },
-        series: [{ name: 'Real', data: [] }, { name: 'Predicted', data: [] }]
+        series: [{ name: 'Predicted', data: [] }, { name: 'Real', data: [] }]
         };
     }
 
     componentDidMount() {
-        this.updateInterval = setInterval(() => this.updateData(), 1000);
+        this.updateInterval = setInterval(() => this.updateData(), 500);
     }
 
     componentWillUnmount() {
         clearInterval(this.updateInterval);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.real.length<this.props.real.length && this.props.predicted.length>1) {
+            this.setState({MAPE: this.state.MAPE + Math.abs((this.props.real[this.props.real.length-1][1]-this.props.predicted[this.props.predicted.length-2][1])/(this.props.real[this.props.real.length-1][1]))});
+        }
     }
 
     resetData = () => {
@@ -92,7 +100,7 @@ class GraphWrapper extends Component {
 
     updateData = () => {
         if(this.props.real.length > 0){
-            this.setState({ series: [{ name: 'Real', data: this.props.real }, { name: 'Predicted', data: this.props.predicted }]}, () =>{
+            this.setState({ series: [{ name: 'Predicted', data: this.props.predicted }, { name: 'Real', data: this.props.real }]}, () =>{
                 ApexCharts.exec('chart-'.concat('vs'), "updateSeries", this.state.series);
             });
         }
@@ -101,9 +109,17 @@ class GraphWrapper extends Component {
 
     render() {
         const { options, series } = this.state;
+        var N
+        if (this.props.predicted.length>0) {
+            N = this.props.predicted.length;
+        }else{
+            N = 1;
+        }
         //<button onClick={this.resetData}>RESET</button>
         return (
-            <Chart options={options} series={series}/>
+            [<Chart options={options} series={series}/>,
+            <h5>MAPE: </h5>,
+            <span>{Math.round(this.state.MAPE*(100/N)*100)/100}%</span>]
         );
     }
 

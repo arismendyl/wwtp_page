@@ -7,7 +7,9 @@ import { postColumns } from "../../actions/postColumns"
 import { postDate_s } from '../../actions/postDate_s'
 import { postLines_s } from '../../actions/postLines_s'
 import { postModel } from '../../actions/postModel'
+import { postDecomposition } from '../../actions/postDecomposition'
 import Seeds from './seeds'
+
 
 class Chart extends Component {
 
@@ -39,7 +41,12 @@ class Chart extends Component {
         dataModel.sort((a, b) => (a.id > b.id) ? 1 : -1);
         this.props.postModel(dataModel)
       });
-    Promise.all([promise1, promise2, promise3]).then(() => boundCallback());
+    const promise4 = fetch('http://localhost:9000/API/read/decomposition')
+    .then(res => res.text())
+    .then(res => {
+      this.props.postDecomposition(JSON.parse(res));
+    });
+    Promise.all([promise1, promise2, promise3, promise4]).then(() => boundCallback());
   }
 
   segment(col) {
@@ -134,6 +141,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     postModel: (model) => {
       dispatch(postModel(model))
+      return Promise.resolve()
+    },
+    postDecomposition: (decomposition) => {
+      dispatch(postDecomposition(decomposition))
       return Promise.resolve()
     }
   }

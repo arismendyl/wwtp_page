@@ -28,4 +28,9 @@ router.get('/model',async (req,res)=>{
     res.json(rqst.rows);
 })
 
+router.get('/decomposition',async (req,res)=>{
+    const rqst = await pool.query('SELECT * FROM decomposition')
+    res.json(rqst.rows);
+})
+
 module.exports=router
