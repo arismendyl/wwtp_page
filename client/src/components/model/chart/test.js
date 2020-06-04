@@ -14,7 +14,10 @@ class GraphWrapper extends Component {
         len:0,
         MAPE:0,
         options: {
-            colors: [colors[0], colors[1]],
+            stroke: {
+                width: 2
+            },
+            colors: [colors[15], colors[3]],
             chart: {
             id: 'chart-'.concat('vs'),
             animations: {
@@ -42,7 +45,7 @@ class GraphWrapper extends Component {
             enabled: false
             },
             title: {
-            text: "Real vs Predicted",
+            text: "Real vs Predicted COD",
             align: "center",
             margin: 20,
             offsetY: 20,
@@ -77,7 +80,7 @@ class GraphWrapper extends Component {
     }
 
     componentDidMount() {
-        this.updateInterval = setInterval(() => this.updateData(), 500);
+        this.updateInterval = setInterval(() => null, 1000);
     }
 
     componentWillUnmount() {
@@ -87,7 +90,9 @@ class GraphWrapper extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.real.length<this.props.real.length && this.props.predicted.length>1) {
             this.setState({MAPE: this.state.MAPE + Math.abs((this.props.real[this.props.real.length-1][1]-this.props.predicted[this.props.predicted.length-2][1])/(this.props.real[this.props.real.length-1][1]))});
+            this.updateData();
         }
+        
     }
 
     resetData = () => {

@@ -76,7 +76,7 @@ class GraphWrapper extends Component {
     }
 
     componentDidMount() {
-        this.updateInterval = setInterval(() => this.updateData(), 500);
+        this.updateInterval = setInterval(() => this.updateData(), 2000);
     }
 
     componentWillUnmount() {

@@ -4,9 +4,10 @@ import './../css/boxes.css'
 import "materialize-css/dist/css/materialize.min.css";
 import { Modal, Button } from 'react-materialize';
 import M from "materialize-css/dist/js/materialize.min.js";
-import GraphWrapper from './chart/test.js'
-import {postReal} from '../../actions/postReal'
-import {postPredicted} from '../../actions/postPredicted'
+import GraphWrapper from './chart/test.js';
+import {postReal} from '../../actions/postReal';
+import {postPredicted} from '../../actions/postPredicted';
+import './../css/alert.css';
 
 class Boxes extends Component {
     constructor(props) {
@@ -18,8 +19,15 @@ class Boxes extends Component {
             delay: 1,
             date: null,
             datep: null,
-            resq: 0
+            resq: 0,
+            msg: false,
+            alert: "",
         }
+    }
+
+    handleClick = (e) => {
+        e.preventDefault();
+        this.setState({msg: false});
     }
 
     componentDidMount() {
@@ -39,31 +47,38 @@ class Boxes extends Component {
                 var date = this.props.series[2].data[this.props.index[0]][0];
                 let val;
                 val = this.props.decomposition[this.props.index[0]].trend + JSON.parse(res)*this.props.model[4].max;
-                console.log(this.props.model[4].max);
                 if (this.props.index[0] >= 6) {
                     val = val + this.props.decomposition[this.props.index[0]-6].seasonal;
                 }
-                this.setState({modalt: Math.round(val)})
+                this.setState({modalt: Math.round(val)-25})
                 var tempDate = new Date(date);
                 this.setState({date: tempDate.toDateString()});
                 var nextDay = new Date(tempDate);
                 nextDay.setDate(tempDate.getDate() + this.state.delay);
                 this.setState({datep: nextDay.toDateString()});
                 this.setState({resq: this.state.resq+1});
-                this.props.postReal([date, this.state.modaln]);
-                this.props.postPredicted([nextDay, this.state.modalt]);
+                this.props.postReal([this.state.date, this.state.modaln]);
+                this.props.postPredicted([this.state.datep, this.state.modalt]);
+                if ((this.state.modaln>=465.87 || this.state.modaln<=246.99) && this.state.modaln>=0) {
+                    this.setState({alert: this.state.date+","});
+                    this.setState({msg: true});
+                }
+                if ((this.state.modalt>=465.87 || this.state.modalt<=246.99) && this.state.modatn>=0) {
+                    this.setState({alert: this.state.datep+","});
+                    this.setState({msg: true});
+                }
             });
         }
     }
 
     render() {
-        /*content bg
-        var d = new Date(Date.now());
-        d.setDate(d.getDate() + 1);
-        */
         const trigger = <div className="col s12 center-align">
                             <a href="" className="btn-small indigo valign-wrapper"><i className="large material-icons">timeline</i></a>
-                        </div>
+                        </div>;
+        let alert = this.state.msg ? (<div class="msg msg-alert z-depth-3">
+            <i className="material-icons yellow-text left">warning</i>
+            Alert Message: {this.state.alert} COD out of range
+        <a href="" ><i className="material-icons black-text right" onClick={this.handleClick}>close</i></a></div>):(null);
         return (
             <div class="black">
 				<div class="container">
@@ -105,6 +120,9 @@ class Boxes extends Component {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="container">
+                        {alert}
                     </div>
                 </div>
 			</div>

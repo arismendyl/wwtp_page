@@ -12,7 +12,7 @@ import API from "./model/api";
 import Boxes from "./model/boxes";
 import Table from './monitoring/table';
 import M from "materialize-css/dist/js/materialize.min.js";
-import './css/user.css'
+import './css/user.css';
 
 class UserPage extends Component {
 
@@ -50,7 +50,7 @@ class UserPage extends Component {
 								<div className="col s11">
 										<Nouislider 
 										range={{ min: 0, max: 100 }} 
-										start={[0, 80]} 
+										start={[0, 99]} 
 										connect
 										onSet={this.onChangeSlide.bind(this)}
 										ref="NoUiSlider"

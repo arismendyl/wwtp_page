@@ -96,7 +96,14 @@ class GraphWrapper extends Component {
     }
 
     componentDidMount() {
-        this.updateInterval = setInterval(() => this.updateData(), 1000)
+        this.updateInterval = setInterval(() => this.updateData(), 2000)
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.series_s!== this.props.series_s && this.props.series_s.length>0) {
+            console.log(this.props.series_s.length>0);
+            ApexCharts.exec('chart-'.concat(this.props.id), "updateSeries", this.state.series)
+        }
     }
 
     componentWillUnmount() {
@@ -113,18 +120,15 @@ class GraphWrapper extends Component {
 
     updateData = () => {
         let { data } = this.state.series[0];
-        
         data=this.props.series_s[this.props.id].data.slice();
-        this.setState({ series: [{ data }] }, () =>
-        ApexCharts.exec('chart-'.concat(this.props.id), "updateSeries", this.state.series)
-        );
+        this.setState({ series: [{ data }] });
     }
     
 
     render() {
         const { options, series } = this.state;
         return (
-                <Chart options={options} series={series}/>
+            <Chart options={options} series={series}/>
         );
     }
 
